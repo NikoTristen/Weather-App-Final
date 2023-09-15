@@ -31,10 +31,20 @@ function getLiveWeather(response){
   document.querySelector("#date").innerHTML = formatDate("timestamp");
 }
 
+function search(city){
+  let units = "imperial"
+  let apiKey = "197f9fd906875b61a67bac12da5e6cdb";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(getLiveWeather);
+}
 
-let units = "imperial"
-let city = "Eureka";
-let apiKey = "197f9fd906875b61a67bac12da5e6cdb";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+function searchResult(event){
+  event.preventDefault();
+  let cityInput = document.querySelector("#city-input");
+  search(cityInput.value);
+}
 
-axios.get(apiUrl).then(getLiveWeather);
+let citySearch = document.querySelector("#city-search");
+citySearch.addEventListener("submit", searchResult);
+
+search("Los Angeles");
