@@ -46,15 +46,20 @@ li:first-letter{
     color: black;
 }
 
-.mainWeatherInfo{
+.mainWeatherInfo {
   position: relative;
   top: -10px;
   left: -15px;
 }
 
-.mainDescription{
+.mainDescription {
   position: relative;
   bottom: -30px;
   right: -60px;
-  
+}
+
+.farhenheitLink {
+  text-decoration: none;
+  color: #4d5156;
+  cursor: default;
 }
