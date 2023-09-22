@@ -18,7 +18,10 @@ function formatDate(timestamp){
 }
 
 function getLiveWeather(response){
-  document.querySelector("#main-temp").innerHTML = Math.round(response.data.main.temp);
+
+  farhenheitTemp = Math.round(response.data.main.temp)
+
+  document.querySelector("#main-temp").innerHTML = farhenheitTemp;
   document.querySelector("#weatherDescription").innerHTML = response.data.weather[0].description;
   document.querySelector("#humidity").innerHTML = Math.round(response.data.main.humidity);
   document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
@@ -44,7 +47,33 @@ function searchResult(event){
   search(cityInput.value);
 }
 
+
+function showCelsiusTemperature(event){
+  event.preventDefault();
+  let changeToCelsius = (farhenheitTemp - 32) * 5/9;
+  document.querySelector("#main-temp").innerHTML = Math.round(changeToCelsius);
+}
+
+function showFarhenheitLink(event){
+  event.preventDefault();
+  document.querySelector("#main-temp").innerHTML = farhenheitTemp
+}
+
+
+
+search("Los Angeles");
+
+
 let citySearch = document.querySelector("#city-search");
 citySearch.addEventListener("submit", searchResult);
 
-search("Los Angeles");
+
+let celsiusLink = document.querySelector("#celsiusLink");
+celsiusLink.addEventListener("click", showCelsiusTemperature);
+
+
+let farhenheitLink = document.querySelector("#farhenheitLink");
+farhenheitLink.addEventListener("click", showFarhenheitLink);
+
+let farhenheitTemp = null
+
