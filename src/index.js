@@ -14,8 +14,35 @@ function formatDate(timestamp){
     minutes = `0${minutes}`;
   }
   return `${day} at ${hour}:${minutes}`;
-
 }
+
+
+
+function displayForecast() {
+let forecastElement = document.querySelector(".weatherForecast");
+let forecastHTML = `<div class="row">`
+let days = ["Sat", "Sun", "Mon", "Tues", "wed"];
+
+days.forEach(function(day){
+forecastHTML = forecastHTML +  `
+            <div class="col-2">
+                Saturday
+              <img
+                src="https://openweathermap.org/img/wn/02d@2x.png"
+                alt=""
+                width="55"
+              />
+              <span class="forecastMax">40°</span>
+              <span class="forecastMin">20°</span>
+            </div>
+                `;
+})
+
+forecastHTML = forecastHTML + `</div>`;
+forecastElement.innerHTML = forecastHTML;
+}
+
+
 
 function getLiveWeather(response){
 
@@ -66,7 +93,7 @@ function showFarhenheitLink(event){
 }
 
 
-
+displayForecast();
 search("Los Angeles");
 
 
