@@ -14,7 +14,9 @@ li:first-letter{
   text-transform:  capitalize;
 }
 
-
+hr{
+  margin-top: 0px;
+}
 .container{
     margin: auto;
     max-width: 600px;

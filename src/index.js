@@ -18,19 +18,20 @@ function formatDate(timestamp){
 
 
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data)
 let forecastElement = document.querySelector(".weatherForecast");
 let forecastHTML = `<div class="row">`
-let days = ["Sat", "Sun", "Mon", "Tues", "wed"];
+let days = ["Sat", "Sun", "Mon", "Tues", "Wed"];
 
 days.forEach(function(day){
 forecastHTML = forecastHTML +  `
-            <div class="col-2">
-                Saturday
+            <div class="col">
+                ${day}
               <img
                 src="https://openweathermap.org/img/wn/02d@2x.png"
                 alt=""
-                width="55"
+                width="62"
               />
               <span class="forecastMax">40°</span>
               <span class="forecastMin">20°</span>
@@ -42,7 +43,12 @@ forecastHTML = forecastHTML + `</div>`;
 forecastElement.innerHTML = forecastHTML;
 }
 
-
+function forecastData(coordinates){
+ 
+  let apiKey = "bd79ao40tde3dec118ca46bc3e6dd55f";
+  let apiUrl= `https://api.shecodes.io/weather/v1/current?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
+}
 
 function getLiveWeather(response){
 
@@ -59,6 +65,8 @@ function getLiveWeather(response){
   weatherIcon.setAttribute("alt", "response.data.weather[0].description");
 
   document.querySelector("#date").innerHTML = formatDate("timestamp");
+
+  forecastData(response.data.coord);
 }
 
 function search(city){
@@ -93,7 +101,6 @@ function showFarhenheitLink(event){
 }
 
 
-displayForecast();
 search("Los Angeles");
 
 
