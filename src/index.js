@@ -16,27 +16,33 @@ function formatDate(timestamp){
   return `${day} at ${hour}:${minutes}`;
 }
 
-
+function formateDay(timestamp){
+let date = new Date(timestamp*1000);
+let day= date.getDay();
+let days= ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+return days[day];
+}
 
 function displayForecast(response) {
-  console.log(response.data)
+let forecast = response.data.daily
 let forecastElement = document.querySelector(".weatherForecast");
-let forecastHTML = `<div class="row">`
-let days = ["Sat", "Sun", "Mon", "Tues", "Wed"];
 
-days.forEach(function(day){
+let forecastHTML = `<div class="row">`
+forecast.forEach(function(forecastDay, index){
+  if (index < 6){
 forecastHTML = forecastHTML +  `
             <div class="col">
-                ${day}
+                ${formateDay(forecastDay.time)}
               <img
-                src="https://openweathermap.org/img/wn/02d@2x.png"
-                alt=""
-                width="62"
+                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forecastDay.condition.icon}.png"
+                alt=${forecastDay.condition.description}
+                width="50"
               />
-              <span class="forecastMax">40°</span>
-              <span class="forecastMin">20°</span>
+              <span class="forecastMax">${Math.round(forecastDay.temperature.maximum)}°</span>
+              <span class="forecastMin">${Math.round(forecastDay.temperature.minimum)}°</span>
             </div>
                 `;
+  };
 })
 
 forecastHTML = forecastHTML + `</div>`;
@@ -46,7 +52,7 @@ forecastElement.innerHTML = forecastHTML;
 function forecastData(coordinates){
  
   let apiKey = "bd79ao40tde3dec118ca46bc3e6dd55f";
-  let apiUrl= `https://api.shecodes.io/weather/v1/current?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apiKey}`;
+  let apiUrl= `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apiKey}`;
   axios.get(apiUrl).then(displayForecast);
 }
 
