@@ -89,24 +89,6 @@ function searchResult(event){
 }
 
 
-function showCelsiusTemperature(event){
-  event.preventDefault();
-
-  farhenheitLink.classList.remove("farhenheitLink");
-  celsiusLink.classList.add("farhenheitLink");
-  let changeToCelsius = (farhenheitTemp - 32) * 5/9;
-  document.querySelector("#main-temp").innerHTML = Math.round(changeToCelsius);
-}
-
-function showFarhenheitLink(event){
-  event.preventDefault();
-  farhenheitLink.classList.add("farhenheitLink");
-  celsiusLink.classList.remove("farhenheitLink");
-
-  document.querySelector("#main-temp").innerHTML = farhenheitTemp
-}
-
-
 search("Los Angeles");
 
 
@@ -114,13 +96,5 @@ let citySearch = document.querySelector("#city-search");
 citySearch.addEventListener("submit", searchResult);
 
 
-let celsiusLink = document.querySelector("#celsiusLink");
-celsiusLink.addEventListener("click", showCelsiusTemperature);
-
-
-let farhenheitLink = document.querySelector("#farhenheitLink");
-farhenheitLink.addEventListener("click", showFarhenheitLink);
-
-let farhenheitTemp = null
 
 
