@@ -36,6 +36,10 @@ hr{
     text-decoration: none;
 }
 
+.owner{
+  margin-top: 10px;
+}
+
 .mainTemp{
   font-size: 60px;
   color: black;
