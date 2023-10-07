@@ -1,9 +1,9 @@
 
 
-function formatDate(timestamp){
+function formatDate(){
 
-  let date = new Date();
-  let hour = date.getHours();
+  let date = new Date()
+  let hour = date.getHours() % 12 || 12;
   let minutes = date.getMinutes();
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   let day = days[date.getDay()];
@@ -13,7 +13,7 @@ function formatDate(timestamp){
   if (minutes < 10 ){
     minutes = `0${minutes}`;
   }
-  return `${day} at ${hour}:${minutes}`;
+      return `${day} at ${hour}:${minutes}`
 }
 
 function formateDay(timestamp){
@@ -49,12 +49,11 @@ forecastHTML = forecastHTML + `</div>`;
 forecastElement.innerHTML = forecastHTML;
 }
 
+
 function forecastData(coordinates){
- 
   let apiKey = "bd79ao40tde3dec118ca46bc3e6dd55f";
   let apiUrl= `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}`;
   axios.get(apiUrl).then(displayForecast);
- 
 }
 
 function getLiveWeather(response){
@@ -73,20 +72,13 @@ console.log(response)
   document.querySelector("#date").innerHTML = formatDate("timestamp");
   
   forecastData(response.data.coordinates);
-  
 }
 
 function search(city){
   let units = "imperial"
-  let apiKey = "bd79ao40tde3dec118ca46bc3e6dd55f"
-  
-  // "197f9fd906875b61a67bac12da5e6cdb";
-
+  let apiKey = "bd79ao40tde3dec118ca46bc3e6dd55f";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&untis=${units}`;
-  
-  // `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-  axios.get(apiUrl).then(getLiveWeather);
-
+    axios.get(apiUrl).then(getLiveWeather);
 }
 
 function searchResult(event){
