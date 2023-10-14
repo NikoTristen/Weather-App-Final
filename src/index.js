@@ -52,13 +52,17 @@ forecastElement.innerHTML = forecastHTML;
 
 function forecastData(coordinates){
   let apiKey = "bd79ao40tde3dec118ca46bc3e6dd55f";
-  let apiUrl= `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}`;
+  let apiUrl= `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayForecast);
 }
 
 function getLiveWeather(response){
-console.log(response)
-  farhenheitTemp = Math.round(response.data.temperature.current)
+
+  let temperature = response.data.temperature.current;
+  let farhenheitTemp = Math.round(temperature*1.8+32);
+  console.log(farhenheitTemp);
+  
+
 
   document.querySelector("#main-temp").innerHTML = farhenheitTemp;
   document.querySelector("#weatherDescription").innerHTML = response.data.condition.description;
